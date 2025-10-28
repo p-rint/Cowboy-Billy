@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://c6e24brspfoy0"]
+
+[ext_resource type="PackedScene" uid="uid://bnbdox6bqdn6h" path="res://stik4.glb" id="1_g1cer"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_g1cer"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4frdj"]
+animation = &"walky"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_j46ix"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_g1cer")
+blend_point_0/pos = 0.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_4frdj")
+blend_point_1/pos = 1.0
+min_space = 0.0
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_ew5ww"]
+graph_offset = Vector2(-108.48014, 108.4799)
+nodes/BlendSpace1D/node = SubResource("AnimationNodeBlendSpace1D_j46ix")
+nodes/BlendSpace1D/position = Vector2(90, 160)
+node_connections = [&"output", 0, &"BlendSpace1D"]
+
+[node name="stik4" instance=ExtResource("1_g1cer")]
+
+[node name="Skeleton3D" parent="Armature" index="0"]
+bones/0/position = Vector3(8.80546e-16, -3.4155743, 1.2444493)
+bones/2/rotation = Quaternion(-0.5795572, 0.1909727, -0.1433675, 0.77915895)
+bones/3/rotation = Quaternion(-1.6714499e-09, 2.8758098e-09, 0.0022983255, 0.99999744)
+bones/6/rotation = Quaternion(0.6323047, 0.4308022, 0.17493866, 0.6196746)
+bones/7/rotation = Quaternion(-0.40408456, -1.7896155e-05, 0.00027230618, 0.9147216)
+bones/9/rotation = Quaternion(-0.7542936, 0.3903776, -0.30254132, 0.43256828)
+bones/10/rotation = Quaternion(-9.047776e-10, -9.1580645e-09, -0.5485526, 0.8361161)
+bones/12/rotation = Quaternion(0.76387286, -0.08246437, 0.41756502, 0.485116)
+bones/13/rotation = Quaternion(0.7021262, -2.1187741e-05, -0.00056174444, 0.7120523)
+bones/15/position = Vector3(0, 6.9692764, -10.1089945)
+bones/16/position = Vector3(2.0894312e-15, -9.409962, -4.395804)
+bones/17/position = Vector3(-5.427601, 0, -5.2806034)
+bones/18/position = Vector3(-2.6686726, 6.9692764, -5.2602305)
+bones/19/position = Vector3(-0.081960686, 7.0000005, 9.571282)
+bones/20/position = Vector3(-0.08196163, -9.916949, 3.7908773)
+bones/20/rotation = Quaternion(0.7071069, 0.70710665, 1.11112655e-07, -1.11112634e-07)
+bones/21/position = Vector3(-5.5095625, 0.030723553, 4.7428913)
+bones/22/position = Vector3(-2.7506335, 7, 4.7225184)
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="2"]
+tree_root = SubResource("AnimationNodeBlendTree_ew5ww")
+anim_player = NodePath("../AnimationPlayer")
+parameters/BlendSpace1D/blend_position = 0.0

@@ -1,0 +1,250 @@
+[gd_scene load_steps=24 format=4 uid="uid://cry5q5ujptw16"]
+
+[ext_resource type="Script" uid="uid://bi3as80q2bwmi" path="res://character_body_3d_3.gd" id="1_g28hq"]
+[ext_resource type="Script" uid="uid://clr7y4txid4ht" path="res://CameraHandler.gd" id="2_3hvph"]
+[ext_resource type="Script" uid="uid://dh4mgwd57dy5f" path="res://enemy_body_3d2.gd" id="3_8dm54"]
+[ext_resource type="Script" uid="uid://c65m0wiyo1pjl" path="res://bullet.gd" id="3_jcpy2"]
+[ext_resource type="Script" uid="uid://p5vwnhlns8q" path="res://destroyBullet.gd" id="5_2ukta"]
+[ext_resource type="Script" uid="uid://x5uv1yns354e" path="res://melee_hitbox.gd" id="5_64ein"]
+[ext_resource type="Script" uid="uid://dtq7nf1fub4ns" path="res://canvas_layer.gd" id="5_nfnsu"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_t2sqa"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_g28hq"]
+sky_material = SubResource("ProceduralSkyMaterial_t2sqa")
+
+[sub_resource type="Environment" id="Environment_3hvph"]
+background_mode = 2
+sky = SubResource("Sky_g28hq")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_t2sqa"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_g28hq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g28hq"]
+
+[sub_resource type="Animation" id="Animation_8dm54"]
+resource_name = "Dash"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterContainer/MeshInstance3D:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.5235988, 0, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_jcpy2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterContainer/MeshInstance3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nfnsu"]
+_data = {
+&"Dash": SubResource("Animation_8dm54"),
+&"RESET": SubResource("Animation_jcpy2")
+}
+
+[sub_resource type="BoxMesh" id="BoxMesh_jcpy2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2ukta"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_52fjd"]
+resource_name = "Material"
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.9063318, 0.9063318, 0.9063318, 1)
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 0.0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_3hvph"]
+resource_name = "Cube"
+_surfaces = [{
+"aabb": AABB(-0.030257609, -0.021606328, -0.004679793, 0.09306742, 0.043212656, 0.009359586),
+"attribute_data": PackedByteArray("AABgPwAAgD4AAGA/AAAAPwAAID8AAAA/AAAgPwAAgD4AACA/AAAAAAAAID8AAIA+AADAPgAAgD4AAMA+AAAAAAAAID8AAEA/AAAgPwAAgD8AAMA+AACAPwAAwD4AAEA/AADAPgAAgD4AAMA+AAAAPwAAAD4AAAA/AAAAPgAAgD4AAMA+AACAPgAAwD4AAIA+AAAgPwAAgD4AAMA+AAAAPwAAID8AAIA+AADAPgAAAD8AACA/AAAAPwAAID8AAAA/AAAgPwAAAD8AACA/AABAPwAAwD4AAEA/AADAPgAAAD8AACA/AAAAPwAAID8AAIA+AAAgPwAAAD8AAMA+AAAAPwAAID8AAAA/AADAPgAAAD8AAMA+AACAPgAAwD4AAAA/AADAPgAAgD4AACA/AACAPgAAwD4AAIA+AAAgPwAAgD4="),
+"bone_aabbs": [AABB(-0.030257609, -0.01, -0.0021659362, 1.0000542e-05, 0.02, 0.0043418724), AABB(0.030257609, -0.021606328, -0.004679793, 0.0325522, 0.043212656, 0.009359586)],
+"format": 34359745559,
+"index_count": 66,
+"index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQACAAJAAoACgALAAgADAANAA4ADgAPAAwAEAARABIAEQAQABMAEgAUABAAEwAVABEAFAASABYAFQATABcAFgAXABQAFwAWABUAGAAZABoAGgAbABgAHAAdAB4AHwAgACEAIgAjACQAJQAmACcA"),
+"material": SubResource("StandardMaterial3D_52fjd"),
+"name": "Material",
+"primitive": 3,
+"skin_data": PackedByteArray("AAAAAAAAAAD//wAAAAAAAAAAAAAAAAAA//8AAAAAAAABAAAAAAAAAP//AAAAAAAAAQAAAAAAAAD//wAAAAAAAAAAAAAAAAAA//8AAAAAAAABAAAAAAAAAP//AAAAAAAAAQAAAAAAAAD//wAAAAAAAAAAAAAAAAAA//8AAAAAAAAAAAAAAAAAAP//AAAAAAAAAAAAAAAAAAD//wAAAAAAAAAAAAAAAAAA//8AAAAAAAAAAAAAAAAAAP//AAAAAAAAAQAAAAAAAAD//wAAAAAAAAEAAAAAAAAA//8AAAAAAAAAAAAAAAAAAP//AAAAAAAAAAAAAAAAAAD//wAAAAAAAAEAAAAAAAAA//8AAAAAAAABAAAAAAAAAP//AAAAAAAAAQAAAAAAAAD//wAAAAAAAAEAAAAAAAAA//8AAAAAAAABAAAAAAAAAP//AAAAAAAAAQAAAAAAAAD//wAAAAAAAAEAAAAAAAAA//8AAAAAAAABAAAAAAAAAP//AAAAAAAAAQAAAAAAAAD//wAAAAAAAAAAAAAAAAAA//8AAAAAAAAAAAAAAAAAAP//AAAAAAAAAQAAAAAAAAD//wAAAAAAAAEAAAAAAAAA//8AAAAAAAABAAAAAAAAAP//AAAAAAAAAQAAAAAAAAD//wAAAAAAAAEAAAAAAAAA//8AAAAAAAABAAAAAAAAAP//AAAAAAAAAQAAAAAAAAD//wAAAAAAAAEAAAAAAAAA//8AAAAAAAABAAAAAAAAAP//AAAAAAAAAQAAAAAAAAD//wAAAAAAAAEAAAAAAAAA//8AAAAAAAABAAAAAAAAAP//AAAAAAAAAQAAAAAAAAD//wAAAAAAAA=="),
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 40,
+"vertex_data": PackedByteArray("zt73vArXI7xh8g07zt73vArXIzxh8g07zt73PArXIzxh8g07zt73PArXI7xh8g07zt73vArXI7xh8g07zt73PArXI7xh8g07zt73PArXI7xh8g27zt73vArXI7xh8g27zt73vArXIzxh8g07zt73vArXI7xh8g07zt73vArXI7xh8g27zt73vArXIzxh8g27zt73PArXI7xh8g27zt73PArXIzxh8g27zt73vArXIzxh8g27zt73vArXI7xh8g27zt73PMH/sLzzWJm7zt73PArXI7xh8g27zt73PArXI7xh8g07zt73PMH/sDzzWJm7zt73PMH/sLzzWJk7zt73PArXIzxh8g27zt73PArXIzxh8g07zt73PMH/sDzzWJk7zt73PArXIzxh8g07zt73vArXIzxh8g07zt73vArXIzxh8g27zt73PArXIzxh8g27bqKAPQAAAAAAAAAAzt73PMH/sLzzWJk7zt73PMH/sDzzWJk7bqKAPQAAAAAAAAAAzt73PMH/sDzzWJk7zt73PMH/sDzzWJm7bqKAPQAAAAAAAAAAzt73PMH/sDzzWJm7zt73PMH/sLzzWJm7bqKAPQAAAAAAAAAAzt73PMH/sLzzWJm7zt73PMH/sLzzWJk7/3//fwAA/7//f/9/AAD/v/9//38AAP+//3//fwAA/7//fwAA/3//v/9/AAD/f/+//38AAP9//7//fwAA/3//vwAA/3//f/+/AAD/f/9//78AAP9//3//vwAA/3//f/+//////////7//////////v/////////+//////////78AAP9/////vwAA/3////+/AAD/f////78AAP9/////vwAA/3////+/AAD/f////78AAP9/////vwAA/3////+//3////9//7//f////3//v/9/////f/+//3////9//78WkP9/////PxaQ/3////8/FpD/f////z8Ps+7M////vw+z7sz///+/D7PuzP///7///+jv////v///6O////+////o7////78PsxAz////vw+zEDP///+/D7MQM////78=")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jcpy2"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8dm54"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2ukta"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_3hvph")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Other" type="Node" parent="."]
+
+[node name="Ground" type="StaticBody3D" parent="Other"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Other/Ground"]
+transform = Transform3D(99.475136, 0, 0, 0, 0.29842544, 0, 0, 0, 99.475136, 0, 0, 0)
+shape = SubResource("BoxShape3D_t2sqa")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Other/Ground"]
+transform = Transform3D(99.30474, 0, 0, 0, 0.29791424, 0, 0, 0, 99.30474, 1.0062153, -1.0035682, 11.013498)
+mesh = SubResource("BoxMesh_g28hq")
+skeleton = NodePath("../../..")
+
+[node name="CharacterBody3D2" type="CharacterBody3D" parent="."]
+collision_layer = 3
+script = ExtResource("1_g28hq")
+
+[node name="Node3D" type="Node3D" parent="CharacterBody3D2"]
+script = ExtResource("2_3hvph")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D2/Node3D"]
+transform = Transform3D(10, 0, 0, 0, 9.659258, 2.5881906, 0, -2.5881906, 9.659258, 0, 2, 3)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D2"]
+shape = SubResource("BoxShape3D_g28hq")
+
+[node name="Timers" type="Node" parent="CharacterBody3D2"]
+
+[node name="lookAt" type="Timer" parent="CharacterBody3D2/Timers"]
+wait_time = 0.5
+one_shot = true
+
+[node name="DashTimer" type="Timer" parent="CharacterBody3D2/Timers"]
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterBody3D2"]
+libraries = {
+&"": SubResource("AnimationLibrary_nfnsu")
+}
+
+[node name="CharacterContainer" type="Node3D" parent="CharacterBody3D2"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D2/CharacterContainer"]
+transform = Transform3D(1, 0, 0, 0, 1.9999999, 0, 0, 0, 0.99999994, 0, 0, 0)
+mesh = SubResource("BoxMesh_jcpy2")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("ShaderMaterial_2ukta")
+
+[node name="Cube" type="MeshInstance3D" parent="CharacterBody3D2/CharacterContainer/MeshInstance3D"]
+transform = Transform3D(-4.371139e-07, -10, 2.1855695e-07, 0, -4.371139e-07, -5, 10, -4.371139e-07, 9.553427e-15, 0, 0.6, 0)
+mesh = SubResource("ArrayMesh_3hvph")
+
+[node name="Area3D" type="Area3D" parent="CharacterBody3D2/CharacterContainer/MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 0.5314336, 0, 0, 0, 0.98365575, 0, 0, 0)
+monitoring = false
+monitorable = false
+script = ExtResource("3_jcpy2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D2/CharacterContainer/MeshInstance3D/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_jcpy2")
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="EnemyBody3D" type="CharacterBody3D" parent="Enemies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 13)
+collision_layer = 3
+script = ExtResource("3_8dm54")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemies/EnemyBody3D"]
+shape = SubResource("BoxShape3D_g28hq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Enemies/EnemyBody3D"]
+transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_jcpy2")
+
+[node name="Bullet" type="RigidBody3D" parent="Enemies/EnemyBody3D/MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0, 0, 0, 1, 0, 0.55, 0)
+mass = 0.001
+gravity_scale = 0.0
+
+[node name="Cube" type="MeshInstance3D" parent="Enemies/EnemyBody3D/MeshInstance3D/Bullet"]
+transform = Transform3D(-4.371139e-07, -10, 2.1855695e-07, 0, -8.742278e-07, -10, 10, -4.371139e-07, 9.553427e-15, 0, 0, 0)
+mesh = SubResource("ArrayMesh_3hvph")
+skeleton = NodePath("../..")
+
+[node name="Area3D" type="Area3D" parent="Enemies/EnemyBody3D/MeshInstance3D/Bullet/Cube"]
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemies/EnemyBody3D/MeshInstance3D/Bullet/Cube/Area3D"]
+transform = Transform3D(0.5, -1.7763568e-15, -4.129286e-20, 1.7763568e-15, 0.5, -3.5527137e-15, 4.129286e-20, 3.5527137e-15, 0.5, 0, 0, 0)
+shape = SubResource("BoxShape3D_8dm54")
+
+[node name="Delete" type="Timer" parent="Enemies/EnemyBody3D/MeshInstance3D/Bullet"]
+one_shot = true
+script = ExtResource("5_2ukta")
+
+[node name="MeleeHitbox" type="Area3D" parent="Enemies/EnemyBody3D/MeshInstance3D"]
+script = ExtResource("5_64ein")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemies/EnemyBody3D/MeshInstance3D/MeleeHitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+shape = SubResource("BoxShape3D_2ukta")
+
+[node name="Timers" type="Node" parent="Enemies/EnemyBody3D"]
+
+[node name="shootWait" type="Timer" parent="Enemies/EnemyBody3D/Timers"]
+one_shot = true
+
+[node name="Stun" type="Timer" parent="Enemies/EnemyBody3D/Timers"]
+one_shot = true
+
+[node name="Despawn" type="Timer" parent="Enemies/EnemyBody3D/Timers"]
+one_shot = true
+
+[node name="ActiveBullets" type="Node" parent="."]
+
+[node name="Node" type="Node" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Node"]
+script = ExtResource("5_nfnsu")
+
+[node name="PlayerHealth" type="Label" parent="Node/CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "100"
+uppercase = true
+
+[node name="EnemyHealth" type="Label" parent="Node/CanvasLayer"]
+layout_direction = 3
+offset_right = 40.0
+offset_bottom = 23.0
+text = "100"
+uppercase = true
+
+[connection signal="area_entered" from="CharacterBody3D2/CharacterContainer/MeshInstance3D/Area3D" to="CharacterBody3D2/CharacterContainer/MeshInstance3D/Area3D" method="_on_area_entered"]
+[connection signal="timeout" from="Enemies/EnemyBody3D/MeshInstance3D/Bullet/Delete" to="Enemies/EnemyBody3D/MeshInstance3D/Bullet/Delete" method="_on_timeout"]
+[connection signal="area_entered" from="Enemies/EnemyBody3D/MeshInstance3D/MeleeHitbox" to="Enemies/EnemyBody3D/MeshInstance3D/MeleeHitbox" method="_on_area_entered"]
