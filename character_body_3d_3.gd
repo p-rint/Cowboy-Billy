@@ -5,15 +5,17 @@ const SPEED = 10.0
 const JUMP_VELOCITY = 4.5
 
 const DASHSPEED = 50
+const SLIDESPEED = 40
 
-var forward
-var right
+var forward = Vector3(0,0,0)
+var right = Vector3(0,0,0)
+
 
 
 @onready var character = $CharacterContainer
 @onready var camera = $Node3D
 @onready var enemy = $"../Enemies/EnemyBody3D"
-@onready var moveDirection
+@onready var moveDirection = Vector3(0,0,0)
 @onready var lastMoveDirection
 @onready var animPlayer = $"AnimationPlayer"
 #@onready var animTree = $"CharacterContainer2/AnimationTree"
@@ -21,6 +23,7 @@ var right
 @export var health = 100
 
 var isDashing = false
+var isSliding = false
 
 func  _ready() -> void:
 	#Engine.time_scale = 1
@@ -65,6 +68,19 @@ func endDash() -> void:
 	isDashing = false
 	
 
+func slide() -> void:
+	if $Timers/SlideTimer.is_stopped():
+		animPlayer.play("Slide")
+		$Timers/SlideTimer.start(.6)
+		sliding()
+		
+	
+
+func sliding() -> void:
+	velocity = (moveDirection.normalized() * SLIDESPEED) + Vector3(0,velocity.y,0)
+	print("Slide")
+	
+
 
 func lookDirection(direction, lerpAmount) -> void:
 	var rotationAngle = lerp_angle(character.global_rotation.y,direction, lerpAmount)
@@ -81,7 +97,7 @@ func attack() -> void:
 #
 #
 func _physics_process(delta: float) -> void:
-		
+	#slide()
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -96,6 +112,10 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("Dash"):
 		dash()
+		
+	if Input.is_action_just_pressed("Sliding"):
+		slide()
+		
 	
 	if Input.is_action_just_pressed("LockOn"):
 		$Node3D.lockingOn = not $Node3D.lockingOn
@@ -111,7 +131,10 @@ func _physics_process(delta: float) -> void:
 	if isDashing == true:
 		if $Timers/DashTimer.time_left == 0:
 			endDash()
-	
+	if $Timers/SlideTimer.time_left > 0:
+		sliding()
+	else:
+		animPlayer.stop()
 
 
 

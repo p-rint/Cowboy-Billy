@@ -15,7 +15,7 @@ const JUMP_VELOCITY = 4.5
 
 var dirToPlayer 
 
-var health = 100
+var health = 500
 var shootWaitTime = 1 # shoot every ... seconds
 
 var stunTime = .5

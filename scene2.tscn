@@ -57,15 +57,31 @@ tracks/0/keys = {
 "values": [Vector3(0, 0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_2ukta"]
+resource_name = "Slide"
+length = 0.6
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterContainer/MeshInstance3D:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -6.2831855, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nfnsu"]
 _data = {
 &"Dash": SubResource("Animation_8dm54"),
-&"RESET": SubResource("Animation_jcpy2")
+&"RESET": SubResource("Animation_jcpy2"),
+&"Slide": SubResource("Animation_2ukta")
 }
 
 [sub_resource type="BoxMesh" id="BoxMesh_jcpy2"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2ukta"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_52fjd"]
 resource_name = "Material"
@@ -145,6 +161,9 @@ one_shot = true
 [node name="DashTimer" type="Timer" parent="CharacterBody3D2/Timers"]
 one_shot = true
 
+[node name="SlideTimer" type="Timer" parent="CharacterBody3D2/Timers"]
+one_shot = true
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterBody3D2"]
 libraries = {
 &"": SubResource("AnimationLibrary_nfnsu")
@@ -153,10 +172,9 @@ libraries = {
 [node name="CharacterContainer" type="Node3D" parent="CharacterBody3D2"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D2/CharacterContainer"]
-transform = Transform3D(1, 0, 0, 0, 1.9999999, 0, 0, 0, 0.99999994, 0, 0, 0)
+transform = Transform3D(0.9999999, 0, 0, 0, 1.9999999, 0, 0, 0, 0.9999998, 0, 0, 0)
 mesh = SubResource("BoxMesh_jcpy2")
 skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("ShaderMaterial_2ukta")
 
 [node name="Cube" type="MeshInstance3D" parent="CharacterBody3D2/CharacterContainer/MeshInstance3D"]
 transform = Transform3D(-4.371139e-07, -10, 2.1855695e-07, 0, -4.371139e-07, -5, 10, -4.371139e-07, 9.553427e-15, 0, 0.6, 0)
